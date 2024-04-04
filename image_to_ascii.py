@@ -11,12 +11,10 @@ def image_to_ASCII(image_path, char_map="@@@@@@@@@@@@%%%%%%%%#########********++
   Returns:
       A string containing the ASCII art representation of the image.
   """
-  # Open the image with Pillow
   img = Image.open(image_path).convert('L')  # Convert to grayscale
 
-  # Resize the image (optional)
   width, height = img.size
-  new_width = 500  # Adjust width as desired
+  new_width = 500  # too low means image is unrecognizable
   aspect_ratio = height / width
   new_height = int(aspect_ratio * new_width)
   img = img.resize((new_width, new_height))
@@ -28,19 +26,18 @@ def image_to_ASCII(image_path, char_map="@@@@@@@@@@@@%%%%%%%%#########********++
   pixels = img.getdata()
 
     
-  invert = False # change to true to invert the image
+  invert = False # change to true to invert the image 
   
-  # Create a list to store ASCII characters for each pixel
+  
   ascii_image = []
   for pixel in pixels:
-    # Map pixel brightness to a character in the char_map
     index = int(pixel * len(ascii_chars) / 256)
     if invert:
         index = -index
     ascii_image.append(ascii_chars[index])
 
-  # Split the ASCII characters into lines based on image width
-  final_image = "\n".join(["l".join(row) for row in zip(*[iter(ascii_image)] * new_width)])
+ 
+  final_image = "\n".join(["l".join(row) for row in zip(*[iter(ascii_image)] * new_width)]) # having the l between each character makes the width more natural
 
   return final_image
 
@@ -50,8 +47,8 @@ def image_to_ASCII(image_path, char_map="@@@@@@@@@@@@%%%%%%%%#########********++
   
 if __name__ == "__main__":
     
-    ascii_art = image_to_ASCII("kevin.jpg")
+    ascii_art = image_to_ASCII("image.jpg")
     
-    # You can also save it to a text file
+    
     with open("ascii_art.txt", "w", encoding="utf-8") as f:
         f.write(ascii_art)
