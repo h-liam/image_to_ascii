@@ -10,7 +10,7 @@ def brightness_to_ascii(brightness):
   Returns:
       A single character representing the light level.
   """
-  char_map = "@@@@@@@@@@@@%%%%%%%%#########********+++++++++===="  # You can adjust the character map for different effects
+  char_map = "@@@@@@@@@@@@%%%%%%%%#########********+++++++++====" 
   index = int(brightness * len(char_map) / 256)
   return char_map[-index]
 
@@ -34,7 +34,7 @@ def webcam_to_ascii():
     for row in ascii_frame:
       print("".join(row))
 
-    print("\033c", end="")  # This clears the terminal screen on some systems
+    print("\033c", end="")  # This clears the terminal screen
 
     if cv2.waitKey(1) == ord('q'):
       break
