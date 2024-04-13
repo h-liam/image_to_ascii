@@ -1,1 +1,1 @@
-'# Image to ascii' 
+# Image to ascii 
